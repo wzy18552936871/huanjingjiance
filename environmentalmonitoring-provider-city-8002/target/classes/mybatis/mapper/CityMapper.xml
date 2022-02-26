@@ -1,0 +1,29 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- public boolean insertCity(City city);
+	public List<City> findAll();
+	public City findById(int data_city_id);
+	public City findByName(String data_city_name);
+	public boolean update(City city); -->
+<mapper namespace="com.environmentalmonitoring.springcloud.dao.CityDao">
+	<insert id="insertCity" parameterType="com.environmentalmonitoring.springcloud.entities.City">
+		insert into data(data_city,data_city_id,data_o324,data_pm2_5,data_pm2_524,data_quality,data_time,data_color,db_source)
+		 values (#{data_city},#{data_city_id},#{data_o324},#{data_pm2_5},#{data_pm2_524},#{data_quality},#{data_time},#{data_color},DATABASE());
+	</insert>
+	<select id="findAll" resultType="com.environmentalmonitoring.springcloud.entities.City">
+		select * from data;
+	</select>
+	<select id="findByName" resultType="com.environmentalmonitoring.springcloud.entities.City" parameterType="String">
+		select * from data where data_city=#{data_city};
+	</select>
+	<select id="findData" resultType="com.environmentalmonitoring.springcloud.entities.City" parameterType="String">
+				select data_city,data_time,data_pm2_5,data_o324 from data order by data_city_id;
+	</select>
+	<update id="updateCity" >
+		UPDATE data SET data_o324=#{city.data_o324},data_pm2_5=#{city.data_pm2_5},
+		data_pm2_524=#{city.data_pm2_524},data_quality=#{city.data_quality},
+		data_time=#{city.data_time},data_color=#{city.data_color} 
+		 WHERE city_id=#{data_city_id};
+	</update>
+</mapper>
